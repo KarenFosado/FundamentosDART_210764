@@ -18,7 +18,8 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |3|Hola Mundo desde DART|10|Finalizada|
 |4|Tipos de datos en DART|5|Finalizada|
 |5|Tipos de datos Dinamicos|5|Finalizada|
-|6|Mapas|6|Activaa|
+|6|Mapas|6|Finalizada|
+|7|Listado Iterables y Conjuntos de Datos|9|Activaa|
 
 
 
