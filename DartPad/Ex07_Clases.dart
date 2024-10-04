@@ -1,51 +1,59 @@
-void main(){
-  // repado de clases en dart
-  // Instanciamos la clase Hero
-  print("Heroe 1: -----------------------------------------------");
+void main() {
+  // Ejemplo de clases en Dart
+  // Creamos una instancia de la clase Hero
   final wolverine = Hero("Logan", "Regeneración");
-
+  
+  print("-----------------------------------------------------");
+  print("Héroe");
   print(wolverine);
   print(wolverine.name);
   print(wolverine.power);
-
-  final scarletWitch = Hero("Magia del caos", "wanda");
-  print("Heroe 2: -----------------------------------------------");
-  print(scarletWitch);
-  print(scarletWitch.name);
-  print(scarletWitch.power);
-
-  final xmen = Team(type: "Heroes", name: "X-men");
+  print("-----------------------------------------------------");
+  
+  final magneto = Hero("Erick", "Campos Magnéticos");
+  print("Anti-Héroe");
+  print(magneto);
+  print(magneto.name);
+  print(magneto.power);
+  print("-----------------------------------------------------");
+  
+  final xmen = Team(type: "Héroes", name: "X-Men");
   print(xmen);
   print(xmen.name);
   print(xmen.type);
-
-  final justiceLeague = Team(name: "La liga de la justicia");
-  print(justiceLeague);
-  print(justiceLeague.name);
-  print(justiceLeague.type);
-
-  // Intentamos instanciar la clase con solo el valor tipo, que no lo permite por que la propiedad de nombre es requerida
-  // final hydra= Team(type: "villanos");
+  print("-----------------------------------------------------");
+  
+  final JL = Team(name: "La Liga de la Justicia");
+  print(JL);
+  print(JL.name);
+  print(JL.type);
+  print("-----------------------------------------------------");
+  
+  /* Intentamos crear una instancia de la clase Team solo con el tipo, pero no es posible ya que 'name' es obligatorio */
+  // final hydra = Team(type: "Villanos");
 }
 
-class Hero
-{
+// Clase con propiedades posicionales
+class Hero {
   String name;
   String power;
-
-  Hero(String pName, String pPower):
   
-    name = pName,
-    power = pPower;
-  
+  // Inicialización del constructor
+  Hero(String pName, String pPower)
+      : name = pName,
+        power = pPower;
 }
 
-// clase con propieades no posiiconales nombradaas
-
-
+// Clase con propiedades nombradas
 class Team {
   String name;
-  String type; 
-  // El constructor de cla cñase siempre debe llevar el mismo npmbre
-  Team({required this.name, this.type="No definido."});
+  String type;
+  
+  // Constructor con parámetros nombrados, 'name' es obligatorio, 'type' tiene un valor por defecto
+  Team({required this.name, this.type = "No definido"});
+  
+  @override
+  String toString() {
+    return 'Grupo: $name, Tipo: $type';
+  }
 }
