@@ -1,6 +1,6 @@
 void main() {
 
-  final mySquare = Square( side: 10 );
+  final mySquare = Square( side: -10 );
   print("""El lado del cuadrado es de : ${mySquare._side}
   su área es de: ${ mySquare.area }""");
   mySquare.side = -5;
@@ -12,9 +12,9 @@ void main() {
 }
 
 class Square {
-  double _side; // side * side
+  double _side; 
   Square({ required double side })
-     : assert(side > 0, 'El valor del lado debe ser mayor a 0 '),
+     : assert(side >= 0, 'El valor del lado debe ser mayor a 0 '),
        _side = side;
 
   double get area {
