@@ -21,6 +21,8 @@ abstract class Person {
   }
 }
 
+
+// 1. Definición de la clase abstracta <Persona>
 // Clase que extiende de Person
 class Paciente extends Person {
   String? NSS;
