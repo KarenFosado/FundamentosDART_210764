@@ -27,7 +27,7 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |12|Clases Abstractas|11|Activa|
 |Tarea 04|Uso de las clases abstractas  en el caso de estudio|10|Activa|
 |13|Aserciones |3|Activa|
-|14|mixins |7|Activa|
+|14|mixins |9|Activa|
 
 
 

@@ -1,192 +1,246 @@
 // 1. Definición de la clase abstracta <Persona>
 abstract class Persona {
-  int personaID;  // ID único para identificar a cada persona.
-  String? nombre;  // Nombre opcional de la persona.
-  DateTime fechaNacimiento;  // Fecha de nacimiento de la persona.
-  String? genero;  // Género opcional de la persona (masculino, femenino, etc.).
+  int personaID;  // ID único para identificar a cada persona (NOT NULL, AUTO_INCREMENT).
+  String? titulo;  // Título opcional (Sr., Sra., Dr., etc.) (DEFAULT NULL).
+  String nombre;  // Nombre de la persona (NOT NULL).
+  String primerApellido;  // Primer apellido de la persona (NOT NULL).
+  String? segundoApellido;  // Segundo apellido opcional (DEFAULT NULL).
+  String? curp;  // CURP opcional y único (UNIQUE, DEFAULT NULL).
+  String grupoSanguineo;  // Grupo sanguíneo de la persona (NOT NULL).
+  DateTime fechaNacimiento;  // Fecha de nacimiento de la persona (NOT NULL).
+  String genero;  // Género de la persona (NOT NULL).
+  DateTime fechaRegistroPersona;  // Fecha de registro de la persona.
+  bool estatus;  // Indica si el paciente está activo o no (DEFAULT TRUE).
 
-  // Constructor que inicializa los atributos de la clase abstracta Persona.
+  // 2. Constructor que inicializa los atributos de la clase abstracta Persona.
   Persona({
-    required this.personaID,  // 'required' indica que este argumento es obligatorio.
-    this.nombre,  // El nombre es opcional.
-    required this.fechaNacimiento,  // La fecha de nacimiento es obligatoria.
-    this.genero,  // El género es opcional.
+    required this.personaID,  // ID obligatorio.
+    this.titulo,  // Título opcional.
+    required this.nombre,  // Nombre obligatorio.
+    required this.primerApellido,  // Primer apellido obligatorio.
+    this.segundoApellido,  // Segundo apellido opcional.
+    this.curp,  // CURP opcional.
+    required this.grupoSanguineo,  // Grupo sanguíneo obligatorio.
+    required this.fechaNacimiento,  // Fecha de nacimiento obligatoria.
+    required this.genero,  // Género obligatorio.
+    required this.fechaRegistroPersona,  // Fecha de registro obligatoria.
+    required this.estatus,
   });
 
-  // 2. Definición de la función de la clase
-  // Método para mostrar información general de la persona. 
-  // En caso de que el nombre o el género no estén definidos, muestra un valor predeterminado.
+  // 3. Método para mostrar la información de la persona.
   void mostrarInformacion() {
+    print('================== PERSONA ==================');
     print('ID Persona: $personaID');
-    print('Nombre: ${nombre ?? 'Desconocido'}');  // Si el nombre es nulo, muestra 'Desconocido'.
-    print('Fecha de Nacimiento: $fechaNacimiento');  // Muestra la fecha de nacimiento.
-    print('Género: ${genero ?? 'No especificado'}');  // Si el género es nulo, muestra 'No especificado'.
+    print('Título: ${titulo ?? 'No especificado'}');
+    print('Nombre completo: $nombre $primerApellido ${segundoApellido ?? ''}'.trim());
+    print('CURP: ${curp ?? 'No registrado'}');
+    print('Grupo Sanguíneo: $grupoSanguineo');
+    print('Fecha de Nacimiento: $fechaNacimiento');
+    print('Fecha de Registro como Persona: $fechaRegistroPersona');
+    print('Género: $genero');
+    print('Estatus: ${estatus ? 'Activo' : 'Desactivado'}');
   }
 }
 
-// 3. Declaración de las propiedades de la clase <Paciente>
-// Clase que extiende de Persona (Paciente es una Persona).
+// 4. Declaración de la clase <Paciente> que extiende de Persona.
 class Paciente extends Persona {
-  String? nss;  // Número de seguridad social opcional (siguiendo el estilo lowerCamelCase).
-  String? tipoSeguro;  // Tipo de seguro médico que tiene el paciente.
-  DateTime? fechaUltimaCita;  // Fecha de la última cita médica del paciente.
-  String? estatusMedico;  // Estado médico del paciente (ej. Activo, Control, etc.).
-  String estatusVida;  // Estado de vida del paciente (Vivo, Finado).
-  bool estatus;  // Indica si el paciente está activo (true) o inactivo (false).
-  DateTime fechaRegistro;  // Fecha en la que el paciente fue registrado en el sistema.
-  DateTime? fechaActualizacion;  // Fecha en la que se actualizó la información del paciente por última vez.
+  String? nss;  // Número de seguridad social opcional (DEFAULT NULL, UNIQUE).
+  String tipoSeguro;  // Tipo de seguro médico (NOT NULL).
+  DateTime? fechaUltimaCita;  // Fecha de la última cita médica opcional (DEFAULT NULL).
+  String estatusMedico;  // Estado médico del paciente (DEFAULT 'Normal').
+  String estatusVida;  // Estado de vida del paciente (DEFAULT 'Vivo').
+  bool estatus;  // Indica si el paciente está activo o no (DEFAULT TRUE).
+  DateTime fechaRegistroPaciente;  // Fecha de registro del paciente (NOT NULL, DEFAULT CURRENT_TIMESTAMP).
+  DateTime? fechaActualizacion;  // Fecha de la última actualización (DEFAULT NULL).
 
-  // Constructor que inicializa las propiedades del paciente y las de la clase Persona.
+  // 5. Constructor que inicializa las propiedades del paciente y las de la clase Persona.
   Paciente({
-    required int personaID,  // ID único para el paciente.
-    String? nombre,  // Nombre del paciente.
-    required DateTime fechaNacimiento,  // Fecha de nacimiento del paciente.
-    String? genero,  // Género del paciente.
-    this.nss,  // NSS opcional.
-    this.tipoSeguro,  // Tipo de seguro opcional.
-    this.fechaUltimaCita,  // Fecha de última cita opcional.
-    this.estatusMedico,  // Estado médico opcional.
-    required this.estatusVida,  // Estado de vida es obligatorio.
-    required this.estatus,  // El estatus (activo/inactivo) es obligatorio.
-    required this.fechaRegistro,  // La fecha de registro es obligatoria.
-    this.fechaActualizacion,  // Fecha de actualización opcional.
+    required int personaID,
+    String? titulo,
+    required String nombre,
+    required String primerApellido,
+    String? segundoApellido,
+    String? curp,
+    required String grupoSanguineo,
+    required DateTime fechaNacimiento,
+    required DateTime fechaRegistroPersona,
+    required String genero,
+    this.nss,  // Opcional.
+    required this.tipoSeguro,  // Tipo de seguro obligatorio.
+    this.fechaUltimaCita,  // Opcional.
+    this.estatusMedico = 'Control',  // Valor por defecto: 'Activo'.
+    this.estatusVida = 'Vivo',  // Valor por defecto: 'Vivo'.
+    this.estatus = true,  // Valor por defecto: activo (true).
+    required this.fechaRegistroPaciente,  // Fecha de alta obligatoria.
+    this.fechaActualizacion,  // Opcional.
   }) : super(
-          personaID: personaID,  // Llama al constructor de la clase Persona.
+          personaID: personaID,
+          titulo: titulo,
           nombre: nombre,
+          primerApellido: primerApellido,
+          segundoApellido: segundoApellido,
+          curp: curp,
+          grupoSanguineo: grupoSanguineo,
           fechaNacimiento: fechaNacimiento,
+          fechaRegistroPersona: fechaRegistroPersona,
           genero: genero,
+          estatus: estatus,
         );
 
-  // 4. Sobreescritura de las propiedades de la clase abstracta <Persona>
-  // Sobreescribe el método mostrarInformacion() de la clase Persona para incluir detalles específicos del paciente.
+  // 6. Sobrescribir el método mostrarInformacion() de Persona para mostrar detalles adicionales.
   @override
   void mostrarInformacion() {
-    super.mostrarInformacion();  // Llama a la versión de mostrarInformacion() de Persona.
-    print('NSS: ${nss ?? 'No registrado'}');  // Si el NSS es nulo, muestra 'No registrado'.
-    print('Tipo de Seguro: ${tipoSeguro ?? 'No especificado'}');  // Si no tiene seguro, muestra 'No especificado'.
-    print('Fecha Última Cita: ${fechaUltimaCita ?? 'No disponible'}');  // Si no tiene cita, muestra 'No disponible'.
-    print('Estatus Médico: ${estatusMedico ?? 'No disponible'}');  // Si no tiene estatus médico, muestra 'No disponible'.
-    print('Estatus Vida: $estatusVida');  // Muestra si el paciente está vivo o fallecido.
-    print('Activo: ${estatus ? 'Sí' : 'No'}');  // Muestra si el paciente está activo o no.
-    print('Fecha de Registro: $fechaRegistro');  // Muestra la fecha en la que fue registrado el paciente.
-    print('Fecha de Actualización: ${fechaActualizacion ?? 'No disponible'}');  // Muestra la última actualización.
+    super.mostrarInformacion();
+    print('================== PACIENTE ==================');
+    if (nss != null) print('NSS: $nss');
+    print('Tipo de Seguro: $tipoSeguro');
+    if (fechaUltimaCita != null) print('Fecha Última Cita: $fechaUltimaCita');
+    print('Estatus Médico: $estatusMedico');
+    print('Estatus Vida: $estatusVida');
+    print('Estatus: ${estatus ? 'Activo' : 'Desactivado'}');
+    print('Fecha de Registro como Paciente: $fechaRegistroPaciente');
+    if (fechaActualizacion != null) print('Fecha de Actualización: $fechaActualizacion');
   }
 
-  // 6. Sobreescritura de la función registrarDefuncion()
-  // Método para marcar al paciente como fallecido.
+  // 7. Método para registrar la defunción del paciente.
   void registrarDefuncion() {
-    estatusVida = 'Finado';  // Cambia el estado de vida del paciente a 'Finado' (fallecido).
-    estatus = false;  // Cambia el estatus del paciente a inactivo.
-    fechaActualizacion = DateTime.now();  // Actualiza la fecha de actualización con la fecha actual.
-    print('El paciente ha sido registrado como fallecido.');  // Muestra un mensaje indicando el cambio.
+    estatusVida = 'Finado';
+    estatus = false; // Cambia a desactivado.
+    fechaActualizacion = DateTime.now();
+    print('El paciente ha sido registrado como fallecido.');
   }
 
-  // 7. Métodos CRUD
-
-  // Crear un nuevo paciente
-  // Método estático para crear un paciente nuevo con la información requerida.
+  // 8. Métodos CRUD de la Clase <Paciente, Persona> 
   static Paciente crearPaciente({
     required int personaID,
-    String? nombre,
+    String? titulo,
+    required String nombre,
+    required String primerApellido,
+    String? segundoApellido,
+    String? curp,
+    required String grupoSanguineo,
     required DateTime fechaNacimiento,
-    String? genero,
-    String? nss,  // NSS opcional.
-    String? tipoSeguro,  // Tipo de seguro opcional.
-    String estatusVida = 'Vivo',  // Por defecto, el estado de vida será 'Vivo'.
-    bool estatus = true,  // Por defecto, el paciente estará activo.
+    required String genero,
+    String? nss,
+    required String tipoSeguro,
+    String estatusVida = 'Vivo',
+    bool estatus = true,
+    required DateTime fechaRegistroPaciente,
+    required DateTime fechaUltimaCita,
+    required DateTime fechaRegistroPersona,
   }) {
     return Paciente(
-      personaID: personaID,  // ID del paciente.
-      nombre: nombre,  // Nombre del paciente.
-      fechaNacimiento: fechaNacimiento,  // Fecha de nacimiento.
-      genero: genero,  // Género.
-      nss: nss,  // NSS.
-      tipoSeguro: tipoSeguro,  // Tipo de seguro.
-      estatusVida: estatusVida,  // Estado de vida.
-      estatus: estatus,  // Estatus activo.
-      fechaRegistro: DateTime.now(),  // Fecha de registro, que será la fecha actual.
+      personaID: personaID,
+      titulo: titulo,
+      nombre: nombre,
+      primerApellido: primerApellido,
+      segundoApellido: segundoApellido,
+      curp: curp,
+      grupoSanguineo: grupoSanguineo,
+      fechaNacimiento: fechaNacimiento,
+      fechaUltimaCita: fechaUltimaCita,
+      genero: genero,
+      nss: nss,
+      tipoSeguro: tipoSeguro,
+      estatusVida: estatusVida,
+      estatus: estatus,
+      fechaRegistroPaciente: fechaRegistroPaciente,
+      fechaRegistroPersona: fechaRegistroPersona,
     );
   }
 
-  // Leer la información del paciente
+  // 9. Métodos para leer, actualizar y eliminar la información del paciente.
   void leerPaciente() {
-    mostrarInformacion();  // Llama al método mostrarInformacion() para ver los datos del paciente.
+    mostrarInformacion();
   }
 
-  // Actualizar la información del paciente
-  // Método para actualizar datos específicos del paciente.
   void actualizarPaciente({
-    String? nuevoNombre,  // Nombre nuevo (opcional).
-    String? nuevoNss,  // NSS nuevo (opcional).
-    String? nuevoTipoSeguro,  // Tipo de seguro nuevo (opcional).
-    String? nuevoEstatusMedico,  // Estado médico nuevo (opcional).
-    bool? nuevoEstatus,  // Estatus nuevo (opcional, activo/inactivo).
+    String? nuevoNombre,
+    String? nuevoNss,
+    String? nuevoTipoSeguro,
+    String? nuevoEstatusMedico,
+    bool? nuevoEstatus,
   }) {
-    if (nuevoNombre != null) nombre = nuevoNombre;  // Si se proporciona un nuevo nombre, lo actualiza.
-    if (nuevoNss != null) nss = nuevoNss;  // Si se proporciona un nuevo NSS, lo actualiza.
-    if (nuevoTipoSeguro != null) tipoSeguro = nuevoTipoSeguro;  // Si se proporciona un nuevo tipo de seguro, lo actualiza.
-    if (nuevoEstatusMedico != null) estatusMedico = nuevoEstatusMedico;  // Si se proporciona un nuevo estatus médico, lo actualiza.
-    if (nuevoEstatus != null) estatus = nuevoEstatus;  // Si se proporciona un nuevo estatus, lo actualiza.
-    fechaActualizacion = DateTime.now();  // Actualiza la fecha de actualización con la fecha actual.
-    print('La información del paciente ha sido actualizada.');  // Muestra un mensaje indicando la actualización.
+    if (nuevoNombre != null) nombre = nuevoNombre;
+    if (nuevoNss != null) nss = nuevoNss;
+    if (nuevoTipoSeguro != null) tipoSeguro = nuevoTipoSeguro;
+    if (nuevoEstatusMedico != null) estatusMedico = nuevoEstatusMedico;
+    if (nuevoEstatus != null) estatus = nuevoEstatus;
+    fechaActualizacion = DateTime.now();
+    print('\n*********** La información del paciente ha sido actualizada.*********');
   }
 
-  // Eliminar el registro de un paciente (simplemente lo desactivamos)
   void eliminarPaciente() {
-    estatus = false;  // Cambia el estatus del paciente a inactivo.
-    print('El paciente ha sido eliminado (estatus inactivo).');  // Muestra un mensaje indicando que el paciente ha sido desactivado.
+    estatus = false;
+    print('El paciente ha sido eliminado (estatus inactivo).');
   }
 }
 
-// 8. Uso de Extends / Implements
+// 10. Casos de prueba en la función main.
 void main() {
-  // 9. Caso de prueba 1: Paciente nuevo
-  // Se crea un paciente nuevo usando el método estático crearPaciente().
+  // Caso de prueba 1: Paciente nuevo.
   Paciente pacienteNuevo = Paciente.crearPaciente(
     personaID: 256,
-    nombre: 'Juan Perez Rodriguez',
+    titulo: 'Sr.',
+    nombre: 'Juan',
+    primerApellido: 'Perez',
+    segundoApellido: 'Rodriguez',
+    curp: 'JUAP920805HDFLLN08',
+    grupoSanguineo: 'O+',
     fechaNacimiento: DateTime(1992, 8, 5),
-    genero: 'Masculino',
-    nss: 'ANSISISNN12233',  // NSS del paciente.
-    tipoSeguro: 'IMSS',  // Tipo de seguro del paciente.
+    genero: 'M',
+    nss: 'ANSISISNN12233',
+    tipoSeguro: 'Privado',
+    fechaRegistroPaciente: DateTime(2023, 10, 9),
+    fechaUltimaCita: DateTime(2023, 10, 9),
+    fechaRegistroPersona: DateTime(2020, 04, 18),
   );
-  print('Caso 1: Paciente nuevo');
-  pacienteNuevo.leerPaciente();  // Muestra la información del paciente nuevo.
+  print('\n ------------------- Caso 1: Paciente nuevo ----------------------' );
+  pacienteNuevo.leerPaciente();
 
-  // 10. Caso de prueba 2: Paciente ya registrado
-  // Se crea un paciente ya registrado con datos específicos.
+  // Caso de prueba 2: Paciente ya registrado.
   Paciente pacienteExistente = Paciente(
     personaID: 125,
-    nombre: 'Martha Flores',
+    titulo: 'Dra.',
+    nombre: 'Martha',
+    primerApellido: 'Flores',
+    segundoApellido: 'Gomez',
+    curp: 'MARF080108MDFLLL00',
+    grupoSanguineo: 'A+',
     fechaNacimiento: DateTime(2008, 1, 8),
-    genero: 'Femenino',
-    nss: 'IMSS1234567890',  // NSS del paciente.
-    tipoSeguro: 'IMSS',  // Tipo de seguro.
-    fechaUltimaCita: DateTime(2023, 10, 5),  // Última cita médica del paciente.
-    estatusMedico: 'Control',  // Estatus médico.
-    estatusVida: 'Vivo',  // Estado de vida.
-    estatus: true,  // Estatus activo.
-    fechaRegistro: DateTime(2020, 9, 12),  // Fecha de registro del paciente.
-    fechaActualizacion: DateTime(2024, 1, 5),  // Última fecha de actualización.
+    genero: 'F',
+    nss: 'SS1234567890',
+    tipoSeguro: 'Privado',
+    fechaUltimaCita: DateTime(2023, 10, 5),
+    estatusMedico: 'Control',
+    estatusVida: 'Vivo',
+    estatus: true,
+    fechaRegistroPaciente: DateTime(2020, 9, 12),
+    fechaRegistroPersona: DateTime(2020, 12, 31),
   );
-  print('\nCaso 2: Paciente ya registrado');
-  pacienteExistente.leerPaciente();  // Muestra la información del paciente existente.
+  print(' \n------------------------- Caso 2: Paciente ya registrado ----------------------' );
+  pacienteExistente.leerPaciente();
 
-  // Actualizar el paciente existente
+  // Actualizar el paciente existente.
   pacienteExistente.actualizarPaciente(
-    nuevoNombre: 'Martha G. Flores',  // Actualiza el nombre.
-    nuevoNss: 'IMSS9876543210',  // Actualiza el NSS.
-    nuevoEstatusMedico: 'En observación',  // Actualiza el estado médico.
+    nuevoNombre: 'Martha G. Flores',
+    nuevoNss: 'SS9876543210',
+    nuevoTipoSeguro: 'Público',
+    nuevoEstatusMedico: 'En tratamiento',
+    nuevoEstatus: true,
   );
-  pacienteExistente.leerPaciente();  // Muestra la información actualizada.
 
-  // 11. Caso de prueba 3: Paciente fallecido
-  print('\nCaso 3: Paciente fallecido');
-  pacienteNuevo.registrarDefuncion();  // Marca al paciente nuevo como fallecido.
-  pacienteNuevo.leerPaciente();  // Muestra la información del paciente fallecido.
+  pacienteExistente.leerPaciente();
+
+  // Caso de prueba 3: Paciente fallecido.
+  print(' \n ------------------------- Caso 3: Paciente fallecido ---------------');
+  pacienteNuevo.leerPaciente(); // Muestra como vivo y activo
+  pacienteNuevo.registrarDefuncion(); // Actualiza a finado y desactivado
+  print('\n*********** La información del paciente ha sido actualizada.*********');
+  pacienteNuevo.leerPaciente(); // Muestra como finado y desactivado
 
   // Caso 4: Eliminar paciente
-  print('\nCaso 4: Eliminar paciente');
-  pacienteExistente.eliminarPaciente();  // Elimina (desactiva) el paciente existente.
-  pacienteExistente.leerPaciente();  // Muestra la información del paciente eliminado.
+  print(' \n ------------------------ Caso 4: Eliminar paciente -----------------');
+  pacienteExistente.eliminarPaciente();
+  pacienteExistente.leerPaciente();
 }
