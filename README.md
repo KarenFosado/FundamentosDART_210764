@@ -24,10 +24,15 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |9|Clases|9|Finalizada|
 |10|Constructores Nombrados	|8|Finalizada|
 |11|Getters (Lectura Controlada) y Setters (Modificacion Controlada)|9|Finalizada|
-|12|Clases Abstractas|11|Activa|
-|Tarea 04|Uso de las clases abstractas  en el caso de estudio|10|Activa|
-|13|Aserciones |3|Activa|
-|14|mixins |9|Activa|
+|12|Clases Abstractas|11|Finalizada|
+|Tarea 04|Uso de las clases abstractas  en el caso de estudio|10|Finalizada|
+|13|Aserciones |3|Finalizada|
+|14|Mixins |9|Finalizada|
+|15|Futures |5|Activa|
+|16|Async-Await |5|Activa|
+|17|Try,on,catch y finally |6|Activa|
+|18|Streams |6|Activa|
+|19|async* y await |4|Activa|
 
 
 
